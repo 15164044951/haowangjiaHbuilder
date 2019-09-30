@@ -19,7 +19,7 @@
 			return callback('密码最短为 6 个字符');
 		}
 		
-		$.ajax('http://192.168.1.101:8888/login/userlogin',{
+		$.ajax('http://192.168.1.7:8888/login/userlogin',{
 			data:{
 				username: loginInfo.account,
 				userpassword: loginInfo.password
