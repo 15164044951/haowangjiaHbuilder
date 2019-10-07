@@ -31,6 +31,8 @@
 			success:function(data){
 				// var a = JSON.stringify(data);
 				if(data.msg=="OK"){
+					loginInfo.nikename = data.data.nike_name;
+					localStorage.setItem('$users', JSON.stringify(loginInfo));
 					owner.createState(data.data.user_name,data.data.user_token, callback);
 				}else{
 					// $.toast(data.msg);
@@ -86,7 +88,13 @@
 		//settings.gestures = '';
 		//owner.setSettings(settings);
 	};
-
+	/**
+	 * 获得本地历史账号
+	 * */
+	owner.getUsers = function(){
+		var usersText = localStorage.getItem('$users') || "{}";
+		return JSON.parse(usersText);
+	}
 
 	
 }(mui, window.app = {}));

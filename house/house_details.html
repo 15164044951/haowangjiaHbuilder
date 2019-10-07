@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			body{
+				
+			}
+			#slider{
+				padding-top: 10px;
+			}
+			.house-details-info{
+				margin-top: 6px;
+				padding-top: 8px;
+				padding-left: 15px;
+				background-color: #FFFFFF;
+				height: 75px;				
+			}
+			.house-details-titlename{
+				font-size: 15px;
+				
+			}
+			.house-details-date{
+				margin-top: 14px;
+				font-size: 13px;
+			}
+			.house-details-infoOwner{
+				margin-top: 6px;
+				padding-left: 15px;
+				background-color: #FFFFFF;
+				height: 75px;	
+			}
+			.marginTop-infoOwner{
+				margin-top: 8px;
+			}
+			
+			.house-details-infoTwo{
+				margin-top: 6px;
+				padding-top: 20px;
+				padding-left: 15px;
+				background-color: #FFFFFF;
+				height: 170px;	
+			}
+			.house-details-info-left{
+				width: 50%;
+				float: left;
+			}
+			.house-details-info-right{
+				width: 50%;				
+				float: right;
+			}
+			#titlePrice{
+				margin-top: 15px;
+				margin-right: 25px;
+				color: gold;				
+				font-size: 30px;
+				float: right;
+			}
+
+			#house-dophone{
+				height: 75px;
+				width: 110px;
+				background-color: #2AC845;
+				float: right;
+				color: #FFFFFF;
+				font-size: 16px;
+				padding-top: 30px;
+				padding-right: 6px;
+				padding-left: 6px;
+				border-left: 4px solid  gold;
+
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+				<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<button id="headerbtn" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>首页
+				</button>
+			   <h1 class="mui-title" id="title">房屋详情</h1>
+		</header>
+		<div id="slider" class="mui-slider" >
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate ">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+					</a>
+
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item ">
+					<a href="#">
+						<img src="../images/shuijiao.jpg">
+					</a>
+
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/muwu.jpg">
+					</a>
+
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/cbd.jpg">
+					</a>
+
+				</div>
+				<!-- 第四张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../images/yuantiao.jpg">
+					</a>
+
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../images/shuijiao.jpg">
+					</a>
+
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div class="house-details-info">
+				<div class="house-details-info-left">
+					<h4 id="titlename" class="house-details-titlename"></h4>
+					<p  id="titledate" class="house-details-date"></p>
+				</div>
+				<div class="house-details-info-right">					
+					<p id="titlePrice"></p>
+				</div>
+				
+			</div>
+			<div class="house-details-infoOwner">
+				<div class="house-details-info-left marginTop-infoOwner">
+					<p >房主姓名：<span id="house-ownername"></span></p>
+					<p >房主电话：<span id="house-ownerphone"></span></p>
+				</div>
+				<div  class="house-details-info-right">
+		<!-- 			  <button  id="house-dophone" type="button"  class="mui-btn mui-btn-success mui-icon mui-icon-phone mui-right">
+						  电话
+					  </button> -->
+					  <div id="house-dophone" class=" mui-icon mui-icon-phone mui-right"> 
+								<center>拨打电话</center> 
+						</div>
+						
+				</div>
+			</div>
+			<div class="house-details-infoTwo">
+				<div class="house-details-info-left">
+					<p>户型：<span id="house-huxing"></span></p>				
+					<p>面积：<span id="house-area"></span>m²</p>
+					<p>付款类型：<span id="house-rentalstate"></span></p>
+					<p>位置：<span id="house-address"></span></p>
+				</div>
+				<div  class="house-details-info-right">
+					<p>售价：<span id="house-sellingprice"></span></p>		
+					<p>出租价：<span id="house-rentalprice"></span></p>
+					<p>房屋类型：<span id="house-selltype"></span></p>
+				</div>
+				
+			</div>
+			
+			
+		</div>
+		<script src="..js/mui.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script type="text/javascript">
+			(function($, doc) {
+					$.init({
+						gestureConfig:{
+								swiperight : true
+						}
+					
+					});
+				
+
+				
+				
+				// var  id= document.getElementById("title");				
+				$.plusReady(function() {
+					var state = app.getState();
+					doc.getElementById("headerbtn").addEventListener('click',function(){
+						var toup=$.currentWebview.toup;
+						if(toup!=null){
+							if(toup=="house"){
+								var houseweb=plus.webview.getWebviewById("house.html");
+								houseweb.show();
+								$.currentWebview.close();
+								
+							}else{
+								var houseweb=plus.webview.getWebviewById("index.html");	
+								houseweb.show();
+								$.currentWebview.close();
+							}
+						}else{
+							var houseweb=plus.webview.getWebviewById("index.html");
+							houseweb.show();
+							$.currentWebview.close();
+						}
+					});
+					// var wsObjArr = plus.webview.all();
+		
+				  //  for (var i in wsObjArr) {
+						// 	alert(i+':'+wsObjArr[i].getURL());
+						// }
+					// var mainPage = plus.webview.getWebviewById("main");
+					// var main_loaded_flag = false;
+					// if(!mainPage){
+					// 	mainPage = $.preload({
+					// 		"id": 'main',
+					// 		"url": '../main.html'
+					// 	});
+					// }else{
+					// 	main_loaded_flag = true;
+					// }
+					
+					// mainPage.addEventListener("loaded",function () {
+					// 	main_loaded_flag = true;
+					// });
+					// var toMain = function() {
+					// 	//使用定时器的原因：
+					// 	//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+					// 	var id = setInterval(function () {
+					// 		if(main_loaded_flag){
+					// 			clearInterval(id);
+					// 			$.fire(mainPage, 'show', null);
+					// 			mainPage.show("pop-in");
+					// 		}
+					// 	},20);
+					// };
+				
+					// 打开app 根据token判断进入登录页还是首页
+					// if (!GetQueryString("id")) {
+					// 	//alert(GetQueryString("id"));
+					// 	// toMain();
+					// 	$.preload({
+					// 		"id": 'main',
+					// 		"url": '../main.html'
+					// 	});
+					// } else if(state.token==null){
+						
+					// 	$.preload({
+					// 		"id": 'login',
+					// 		"url": '../login.html'
+					// 	});
+					// }
+					//备注名
+					var titlename=doc.getElementById("titlename");
+					//创建时间
+					var titledate=doc.getElementById("titledate");
+					//房主姓名
+					var houseownername=doc.getElementById("house-ownername");
+					//房主电话
+					var houseownerphone=doc.getElementById("house-ownerphone");
+					//户型
+					var househuxing=doc.getElementById("house-huxing");
+					//面积
+					var housearea=doc.getElementById("house-area");
+					//出租类型
+					var houserentalstate=doc.getElementById("house-rentalstate");
+					//地址
+					var houseaddress=doc.getElementById("house-address");
+					//售价
+					var housesellingprice=doc.getElementById("house-sellingprice");
+					//售价
+					var houserentalprice=doc.getElementById("house-rentalprice");
+					//房屋买卖类型
+					var houseselltype = doc.getElementById("house-selltype");
+					//房屋价格
+					var titlePrice = doc.getElementById("titlePrice");
+					
+
+			
+					$.ajax('http://192.168.1.7:8888/house/getHouseDetails', {
+						data: {
+							id: $.currentWebview.houseid
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						beforeSend: function(request) {
+							request.setRequestHeader("Authorization", state.token);
+						},
+						success: function(data) {
+							
+							if (data.msg == "OK") {
+					
+								titlename.innerHTML = data.data.house_name;
+								titledate.innerHTML = data.data.house_createdate;
+								houseownername.innerHTML = data.data.house_owner;
+								houseownerphone.innerHTML = data.data.house_phone;
+								househuxing.innerHTML = data.data.house_huxingText;
+								housearea.innerHTML = data.data.house_area;
+								houserentalstate.innerHTML = data.data.house_rentalstateText;	
+								houseaddress.innerHTML = data.data.house_address;
+								housesellingprice.innerHTML = data.data.house_sellingpricetext;
+								houserentalprice.innerHTML = data.data.house_rentalpricetext;
+								houseselltype.innerHTML= data.data.house_selltypeText;
+								var housetype=data.data.house_type;
+								if(housetype){
+									if(housetype==1){//房屋类型为租
+										titlePrice.innerHTML = data.data.house_rentalpricetext;									
+									}else{//房屋类型为卖或者可租可卖
+										titlePrice.innerHTML = data.data.house_sellingpricetext;
+									}
+									
+								}
+							} else {
+								alert("errorsss");
+									$.openWindow({
+													url: '../error.html', //需要打开页面的url地址 
+													id: 'error', //需要打开页面的url页面id
+												
+													show: { //控制打开页面的类型
+														autoShow: false,
+														//页面loaded事件发生后自动显示，默认为true 
+														// aniShow: 'slide-in-right', //页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+														// aniShow: 'pop-in', //主页面跟着一起动
+														aniShow: 'zoom-fade-out', //目前广泛使用的方式
+														duration: '400' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒； 
+													},
+													waiting: { // 控制 弹出转圈框的信息
+														autoShow: true, //自动显示等待框，默认为true 
+														title: '加载中...', //等待对话框上显示的提示内容 
+														options: {
+															width: '100px', //等待框背景区域宽度，默认根据内容自动计算合适宽度 
+															height: '100px', //等待框背景区域高度，默认根据内容自动计算合适高度 ...... 
+														}
+													}
+												});						
+							   }
+						   }
+					   });
+					    //打房主电话功能
+					   doc.getElementById("house-dophone").addEventListener('tap',function(){
+					               var btnArray=['拨打','取消'];
+					               var phone=houseownerphone.innerHTML;
+					               mui.confirm('是否拨打'+phone+'?','提示',btnArray,function(e){
+					                   if(e.index == 0){
+					                       plus.device.dial(phone,false);
+					                   }
+					               });
+					           });
+
+					   $.oldBack = $.back;
+					   var backButtonPress = 0;
+					   $.back = function(event) {
+									//$.currentWebview.opener();
+				
+									var toup=$.currentWebview.toup;
+									if(toup!=null){
+										if(toup=="house"){
+											var phouse=	plus.webview.getWebviewById("house.html");
+											phouse.show();
+											$.currentWebview.close();
+											
+										}else{
+											var phouse=plus.webview.getWebviewById("index.html");	
+											phouse.show();
+											$.currentWebview.close();
+										}
+										return false;
+									}else{
+										var phouse=plus.webview.getWebviewById("index.html");
+										phouse.show();
+										$.currentWebview.close();
+									}
+									return false;
+						};
+					});
+				
+		    }(mui, document));
+
+		</script>
+	</body>
+
+</html>

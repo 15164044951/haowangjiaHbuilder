@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			.house-radio{
+				margin-right: 6px;
+			}
+			.house-float-left{
+				float: left;
+			}
+			.mui-content{
+				padding-bottom: 35px;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+				<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<button id="headerbtn" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>首页
+				</button>
+			   <h1 class="mui-title" id="title">房屋创建</h1>
+		</header>
+		
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<form class="mui-input-group" id ="fromhouse">
+					<div class="mui-input-row">
+						<label>备注名：</label>
+						<input type="text" id = "house_name" class="mui-input-speech mui-input-clear" placeholder="备注名">
+					</div>
+					<div class="mui-input-row">
+						<label>地址：</label>
+						<input type="text" id = "house_address" class="mui-input-speech mui-input-clear" placeholder="请输入地址">
+					</div>
+					<div class="mui-input-row">
+						<label>房主姓名：</label>
+						<input type="text" id="house_owner" class="mui-input-speech mui-input-clear" placeholder="请输入房主姓名">
+					</div>
+					<div class="mui-input-row">
+						<label>房主电话：</label>
+						<input type="number" id="house_phone" class="mui-input-speech mui-input-clear" placeholder="请输入电话">
+					</div>
+					<div class="mui-input-row">
+						<label>房屋类型：</label>
+						<label>租:<input type="radio" name="house-radio-type" value="1" class="house-radio" checked="checked">卖:<input type="radio"  value="0" name="house-radio-type" class="house-radio" > </label>
+						
+					</div>
+					<div class="mui-input-row">
+						<label>售价：</label>
+						<input type="number" id="house_sellingprice" class="mui-input-speech mui-input-clear" placeholder="请输入价格(单位万)">
+					</div>
+					<div class="mui-input-row">
+						<label>买卖类型：</label>
+						<select class="mui-select" id="house_selltype">
+							<option value="2">无</option>
+							<option value="0">使用权</option>
+							<option value="1">产权</option>
+						</select>
+						<span class="mui-navigate-right"></span>
+					</div>
+					<div class="mui-input-row">
+						<label>出租价：</label>
+						<input type="number" id="house_rentalprice" class="mui-input-speech mui-input-clear" placeholder="请输入价格">
+					</div>
+					<div class="mui-input-row">
+						<label>出租类型：</label>
+						<select class="mui-select" id="house_rentalstate">
+							<option value="4">无</option>
+							<option value="0">押一付三</option>
+							<option value="1">押一付一</option>
+							<option value="2">押一付二</option>
+							<option value="3">押三付三</option>
+						</select>
+						<span class="mui-navigate-right"></span>
+					</div>
+					<div class="mui-input-row">
+						<label>面积：</label>
+						<input type="number" id="house_area" class="mui-input-speech mui-input-clear" placeholder="请输入面积㎡">
+					</div>
+					<div class="mui-input-row">
+						<label>室：</label>
+						<div class="mui-numbox house-float-left"  data-numbox-min="1" data-numbox-max="9">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="house_shi"  class="mui-input-numbox" type="number" value="1" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="mui-input-row">
+						<label>厅：</label>
+						<div class="mui-numbox house-float-left" data-numbox-min="1" data-numbox-max="9">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="house_ting" class="mui-input-numbox" type="number" value="1" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="mui-input-row">
+						<label>卫：</label>
+						<div class="mui-numbox house-float-left" data-numbox-min="1" data-numbox-max="9">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="house_wei" class="mui-input-numbox" type="number" value="1" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="mui-input-row">
+						<label>厨：</label>
+						<div class="mui-numbox house-float-left" data-numbox-min="1" data-numbox-max="9">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="house_chu" class="mui-input-numbox" type="number" value="1" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="mui-input-row" style="margin: 10px 5px; height: 150px;">
+						<label>备注信息：</label>
+						<textarea  id="house_remarks" rows="5" placeholder="房屋详情等"></textarea>
+					</div>
+		<!-- 			<div class="mui-input-row mui-plus-visible">
+						<label>Input</label>
+						<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
+					</div> -->
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" >确认</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" >取消</button>
+					</div>
+					
+				</form>
+			
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<!-- <script src="../js/mui.js"></script> -->
+		<script type="text/javascript">
+		(function($, doc) {
+				$.init({
+					gestureConfig:{
+							swiperight : true
+					}
+				
+				});
+				var state = app.getState();
+				$('.mui-content').scroll({
+					bounce: false,
+					indicators: true
+				});
+				$.plusReady(function() {
+					
+					 // doc.getElementById("headerbtn")$('#list').unbind('tap').on('tap', 'li', function(e) {
+					 //    //.unbind('tap')  防止多次点击
+					 //          e.preventDefault();//阻止提交form事件
+					 //          e.preventBubble();//父级元素冒泡
+					 //    });
+					 //确认后提交表单
+					 doc.querySelector(".mui-btn-primary").addEventListener('click',function(){
+						var houseentity={
+
+							            "house_name": null,
+							            "house_remarks": null,
+							            "house_address": null,
+							            "house_type": null,
+							            "house_sellingprice": 0,
+							            "house_selltype": null,
+							            "house_rentalprice": null,
+							            "house_rentalstate": null,
+							            "house_area": null,
+							            "house_shi": null,
+							            "house_ting": null,
+							            "house_wei": null,
+							            "house_chu": null,
+							            "house_owner": null,
+							            "house_phone": null
+							
+						};
+						var house_name=doc.getElementById("house_name").value;
+						var house_remarks=doc.getElementById("house_remarks").value;
+						var house_address=doc.getElementById("house_address").value;
+						var house_owner=doc.getElementById("house_owner").value;
+						var house_phone=doc.getElementById("house_phone").value;
+						var house_sellingprice=doc.getElementById("house_sellingprice").value;
+						var house_selltype=doc.getElementById("house_selltype").value;
+						var house_rentalprice=doc.getElementById("house_rentalprice").value;
+						var house_rentalstate=doc.getElementById("house_rentalstate").value;
+						var house_area=doc.getElementById("house_area").value;
+						var house_shi=doc.getElementById("house_shi").value;
+						var house_ting=doc.getElementById("house_ting").value;
+						var house_wei=doc.getElementById("house_wei").value;
+						var house_chu=doc.getElementById("house_chu").value;
+						//备注名
+						 if(house_name!=''&&house_name!=null){
+							  houseentity.house_name=house_name;
+						 }else{
+							 alert("备注名不能为空");
+							 return false;
+						 }
+						 //备注信息
+						 if(house_remarks!=''&&house_remarks!=null){
+							 houseentity.house_remarks=	house_remarks;					
+						  }
+						  //地址
+						  if(house_address!=''&&house_address!=null){
+							 houseentity.house_address=house_address;
+						  }else{
+							  alert("地址不能为空");
+							  return false;
+						  }
+						  //单选房屋类型
+						  var house_danxuan=doc.querySelectorAll(".house-radio");
+						  for (var i = 0 ; i<house_danxuan.length;i++){
+						  		
+						  	if(house_danxuan[i].checked){
+						  		houseentity.house_type=house_danxuan[i].value;
+						  	}
+						  }
+						  //房主姓名
+						  if(house_owner!=''&&house_owner!=null){
+							  houseentity.house_owner=house_owner;
+						  }else{
+							  alert("房主姓名不能为空");
+							  return false;
+						  }
+						  //房主电话
+						  if(house_phone!=''&&house_phone!=null){
+						  			houseentity.house_phone=house_phone;
+						  }else{
+						  			 alert("房主电话不能为空");
+						  			return false;
+						  }
+						   //售价
+						   if(house_sellingprice!=''&&house_sellingprice!=null){
+							   houseentity.house_sellingprice=house_sellingprice;
+						   }
+						   //买卖类型
+						   if(house_selltype!=''&&house_selltype!=null){
+						   		 houseentity.house_selltype=house_selltype;
+						   }
+						   //出租价格
+						   if(house_rentalprice!=''&&house_rentalprice!=null){
+							   houseentity.house_rentalprice=house_rentalprice;
+
+						   }
+						   //出租付款类型
+						   if(house_rentalstate!=''&&house_rentalstate!=null){
+						   		houseentity.house_rentalstate=house_rentalstate;
+						   }
+						   
+					
+						   //面积
+						   if(house_area!=''&&house_area!=null){
+							   houseentity.house_area=house_area;
+						   }else{
+							   alert("房屋面积不能为空");
+							   return false;
+						   }
+						   //室
+						   if(house_shi!=''&&house_shi!=null){
+						   		houseentity.house_shi=house_shi;
+						   }
+						    //厅
+						   if(house_ting!=''&&house_ting!=null){
+						   		houseentity.house_ting=house_ting;
+						   }
+						    //卫
+						   if(house_wei!=''&&house_wei!=null){
+						   		houseentity.house_wei=house_wei;
+						   }
+						    //厨
+						   if(house_chu!=''&&house_chu!=null){
+						   		houseentity.house_chu=house_chu;
+						   }
+						   //执行ajax
+						   ajaxInsertHouse(houseentity);
+						  
+					 })
+					//ajax
+					var ajaxInsertHouse=function(houseentity){
+						$.ajax('http://192.168.1.7:8888/house/insertHouse', {
+							data: {
+								hosueentity: houseentity
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							beforeSend: function(request) {
+								request.setRequestHeader("Authorization", state.token);
+							},
+							success: function(data) {
+								
+									if (data.msg == "OK") {
+											alert("添加成功");
+											bockajax();
+									} else {
+
+								   }
+							   
+							   }
+						   });
+					}
+					//成功后回到首页
+					var bockajax=function(){
+						var phouse=plus.webview.getWebviewById("index.html");
+						phouse.show();
+						$.currentWebview.close();
+					}
+					//点击回到首页
+					doc.getElementById("headerbtn").addEventListener('click',function(){
+						var phouse=plus.webview.getWebviewById("index.html");
+						phouse.show();
+						$.currentWebview.close();
+					});
+					//取消回到首页
+					doc.querySelector(".mui-btn-danger").addEventListener('click',function(){
+						var phouse=plus.webview.getWebviewById("index.html");
+						phouse.show();
+						$.currentWebview.close();
+					});
+					//返回上一页
+					$.oldBack = $.back;
+								var backButtonPress = 0;
+								$.back = function(event) {							
+									var phouse=plus.webview.getWebviewById("index.html");	
+									phouse.show();
+									$.currentWebview.close();
+									return false;
+								};
+							});
+				}(mui, document));
+		</script>
+	</body>
+
+</html>

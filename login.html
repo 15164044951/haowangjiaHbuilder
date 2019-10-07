@@ -102,19 +102,19 @@
 				</center>
 			</div>
 
-			<form id='login-form' class="mui-input-group">
+			<form id="login-form" class="mui-input-group">
 				<div class="mui-input-row">
 					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<input id="account" type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					<input id="password" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 				</div>
 			</form>
 
 			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<button id="login" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
 			</div>
 			<div class="mui-content-padded oauth-area">
 
@@ -128,6 +128,19 @@
 				$.init({
 					statusBarBackground: '#f7f7f7'
 				});
+					var account = doc.getElementById('account');
+					var password = doc.getElementById('password');
+					var users = app.getUsers();
+					//历史账号登陆
+					if(users.account != null ){
+						account.value= users.account					
+					}
+					if(users.password != null){
+						password.value = users.password
+					}
+		
+					
+		
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
 					var state = app.getState();
@@ -158,7 +171,7 @@
 					};
 					// 打开app 根据token判断进入登录页还是首页
 					if (state.token) {
-						toMain();
+						//toMain();
 					} else {
 						app.setState(null);
 						// $.preload({

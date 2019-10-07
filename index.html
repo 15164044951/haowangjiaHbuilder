@@ -6,11 +6,276 @@
     <title></title>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+	<style>
+		
+		ul {
+			font-size: 14px;
+			color: #8f8f94;
+		}
+		#offCanvasContentScroll{
+			padding: 0px;
+		}
+		.title{
+			background-color: #FFFFFF;
+			height: 35px;
+			padding-left: 12px;
+			padding-top: 10px;
+			color: darkgrey;
+		}
+		.index-info ul{
+			background-color: #FFFFFF;
+
+			
+		}
+		.hidedic{
+			display: none;
+		}
+	
+	</style>
+	<script src="js/app.js"></script>
+
 </head>
 <body>
+
+		<div class="mui-inner-wrap">
+				
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+			
+				<div class="mui-scroll">
+					<div class="index-info">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#" id="house_add">
+						            <span class="mui-icon mui-icon-home"></span>
+						            <div class="mui-media-body">房源创建</div>
+									</a>
+							</li>
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#" id="customer_add">
+						            <span class="mui-icon mui-icon-personadd"></span>
+						            <div class="mui-media-body">客源创建</div></a></li>
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+						            <span class="mui-icon mui-icon-chatbubble"><span class="mui-badge">5</span></span>
+						            <div class="mui-media-body">消息</div></a></li>
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+						            <span class="mui-icon mui-icon-location"></span>
+						            <div class="mui-media-body">成交录入</div></a></li>
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+						            <span class="mui-icon mui-icon-search"></span>
+						            <div class="mui-media-body">搜索</div></a></li>
+						    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+						            <span class="mui-icon mui-icon-phone"></span>
+						            <div class="mui-media-body">通讯录</div></a></li>
+						</ul> 
+						
+					</div>
+					<div class="mui-content-padded">
+							<div id="title-house"  class="title">
+								最新房源
+							</div>
+							<ul id="ul-view-houseNew" class="mui-table-view mui-table-view-chevron">							
+							</ul>								
+							<div id="title-customer"  class="title">
+								最新客源
+							</div>
+							<ul id="ul-view-customer" class="mui-table-view mui-table-view-chevron">					
+							</ul>
+								
+					</div>
+				</div>
+			</div>
+			<!-- off-canvas backdrop -->
+			<!-- <div class="mui-off-canvas-backdrop"></div> -->
+			<div class="hidedic">
+				<ul>
+					<li id="default-li" class="mui-table-view-cell">
+						<a href="#" class="li-a-detailsUrl" ><img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg">
+							<div class="mui-media-body">
+								<p class="li-div-p">
+									
+								</p>
+								<p class="mui-ellipsis">
+											
+								</p>
+							</div>
+						</a>
+					</li>
+					
+				</ul>
+			</div>
+	    </div>	
 	
+	<script type="text/javascript" charset="utf-8">
+		(function($, doc) {
+			$.init();
+			$('.mui-scroll-wrapper').scroll();
+
+			
+			$.plusReady(function() {
+				var state = app.getState();
+				
+				
+				
+				$.ajax('http://192.168.1.7:8888/index/indexText', {
+					data: {
+						username: state.account
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					beforeSend: function(request) {
+						request.setRequestHeader("Authorization", state.token);
+					},
+					success: function(data) {
+						// var a = JSON.stringify(data);
+						if (data.msg == "OK") {
+							// var table = doc.body.querySelector('.mui-table-view');ul-view
+							var tableHouse = doc.getElementById("ul-view-houseNew");
+							//获取房源信息javascript:;" onclick="houseDetails('+cellsHouse[i].house_id+')"
+							var cellsHouse = data.data.listhouse;
+							for(var i = 0; i < cellsHouse.length; i++) {
+								var li = doc.createElement('li');
+								var defli=doc.getElementById("default-li");
+								li.className = 'mui-table-view-cell';
+								li.innerHTML = defli.innerHTML;
+								var id = cellsHouse[i].house_id;
+								var lia=li.querySelector(".li-a-detailsUrl");
+								lia.id = id;
+								lia.addEventListener("click",function(event){
+									var  adetails=	plus.webview.create("house/house_details.html","house_details.html",{},{'houseid':this.id,'toup':'index'});
+									$.currentWebview.hide();
+									adetails.show();
+								});
+								li.querySelector(".li-div-p").innerText = cellsHouse[i].house_name;
+								li.querySelector(".mui-ellipsis").innerText = cellsHouse[i].house_remarks;
+								tableHouse.appendChild(li);
+							}
+							
+							var tableCustomer = doc.getElementById("ul-view-customer");
+							//获取房源信息
+							var cellsCustomer = data.data.listcustomer;
+							for(var i = 0; i < cellsCustomer.length; i++) {
+								
+								var li = doc.createElement('li');
+								var defli=doc.getElementById("default-li");
+								li.className = 'mui-table-view-cell';
+								li.innerHTML = defli.innerHTML;
+								var id = cellsCustomer[i].customer_id;
+								var lia=li.querySelector(".li-a-detailsUrl");
+								lia.id = id;
+								lia.addEventListener("click",function(event){
+									
+									var  adetails=	plus.webview.create("customer/customer_details.html","customer_details.html",{},{'customerid':this.id,'toup':'index'});
+									$.currentWebview.hide();
+									adetails.show();
+								});
+								li.querySelector(".li-div-p").innerText = cellsCustomer[i].customer_name;
+								li.querySelector(".mui-ellipsis").innerText = cellsCustomer[i].customer_details;
+								tableCustomer.appendChild(li);
+							}
+							
+						} else {
+								$.openWindow({
+												url: 'error.html', //需要打开页面的url地址 
+												id: 'error', //需要打开页面的url页面id
+												// styles: {
+												// 	top: '0px', //新页面顶部位置 
+												// 	bottom: '0px', //新页面底部位置 
+												// 	// width: "50%", //新页面宽度，默认为100% 
+												// 	// height: "50%", //新页面高度，默认为100% ...... 
+												// },
+												// extras: {
+												// 	name: 'lzz',
+												// 	age: '18',
+												// 	//自定义扩展参数，可以用来处理页面间传值 
+												// },
+												show: { //控制打开页面的类型
+													autoShow: false,
+													//页面loaded事件发生后自动显示，默认为true 
+													// aniShow: 'slide-in-right', //页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+													// aniShow: 'pop-in', //主页面跟着一起动
+													aniShow: 'zoom-fade-out', //目前广泛使用的方式
+													duration: '400' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒； 
+												},
+												waiting: { // 控制 弹出转圈框的信息
+													autoShow: true, //自动显示等待框，默认为true 
+													title: '加载中...', //等待对话框上显示的提示内容 
+													options: {
+														width: '100px', //等待框背景区域宽度，默认根据内容自动计算合适宽度 
+														height: '100px', //等待框背景区域高度，默认根据内容自动计算合适高度 ...... 
+													}
+												}
+											});
+					
+						}
+					}
+				});
+			
+				//打开房屋创建页
+				doc.getElementById("house_add").addEventListener('click',function(){
+					// $.openWindow({
+					// 	url: 'house/house_add.html', //需要打开页面的url地址
+					// 	id: 'house_add.html', //需要打开页面的url页面id
+					// 	styles: {
+					// 		// top: '0px', //新页面顶部位置 
+					// 		// bottom: '0px', //新页面底部位置 
+					// 		// // width: "50%", //新页面宽度，默认为100% 
+					// 		// // height: "50%", //新页面高度，默认为100% ...... 
+					// 	},
+					// 	extras: {
+					// 		// name: 'lzz',
+					// 		// age: '18',
+					// 		//自定义扩展参数，可以用来处理页面间传值 
+					// 	},
+					// 	show: { //控制打开页面的类型
+						
+					// 	},
+					// 	waiting: { // 控制 弹出转圈框的信息
+							
+					// 	}
+						
+					// })
+					var  hosueadd=plus.webview.create("house/house_add.html","house_add.html");
+					$.currentWebview.hide();
+					hosueadd.show();
+					
+					
+				});
+				//打开客源创建页
+				doc.getElementById("customer_add").addEventListener('click',function(){
+					var  customeradd=plus.webview.create("customer/customer_add.html","customer_add.html.html");
+					$.currentWebview.hide();
+					customeradd.show();
+					
+					
+				});
+				// var settingPage = $.preload({
+				// 	"id": 'setting',
+				// 	"url": 'setting.html'
+				// });
+				// //设置
+				// var settingButton = doc.getElementById('setting');
+				// //settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+				// settingButton.addEventListener('tap', function(event) {
+				// 	$.openWindow({
+				// 		id: 'setting',
+				// 		show: {
+				// 			aniShow: 'pop-in'
+				// 		},
+				// 		styles: {
+				// 			popGesture: 'hide'
+				// 		},
+				// 		waiting: {
+				// 			autoShow: false
+				// 		}
+				// 	});
+				// });
+
+			});
+		}(mui, document));
+	</script>
 </body>
 </html>

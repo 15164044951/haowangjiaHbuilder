@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+
+		
+		<style>
+			
+			.mui-card-content-inner{
+				
+				height: 260px;
+			}
+			.mui-card-header{
+				color:  #555555;
+			}
+		</style>
+	</head>
+			
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+				<button id="headerbtn" class="mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>首页
+				</button>
+			   <h1 class="mui-title" id="title">客源详情</h1>
+		</header>
+		<div class="mui-content">
+	
+			<div class="mui-card">
+				<div class="mui-card-header" ><span id="customername" ></span><span id="timeStart"></span></div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner" >
+						<p id= "infocustomer"></p>
+						<p>预算价位：<span id="price"></span></p>
+					</div>
+				</div>
+				<div class="mui-card-footer">电话：<span id="phone"></span>  <button type="button" id = "phone-customer" class="mui-btn mui-btn-success mui-icon mui-icon-phone">拨打电话</button></div>
+			</div>
+			<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-primary mui-btn-block">修改</button>
+					<button type="button" class="mui-btn mui-btn-danger mui-btn-block">删除</button>
+			</div>
+			
+		</div>
+		<script src="..js/mui.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script type="text/javascript">
+			(function($, doc) {
+					$.init({
+						gestureConfig:{
+								swiperight : true
+						}
+					
+					});
+		
+					
+					
+					$.plusReady(function() {
+						var state = app.getState();
+						var customername = doc.getElementById("customername");//客户备注名
+						var timeStart = doc.getElementById("timeStart");//创建时间
+						var infocustomer = doc.getElementById("infocustomer");//需求信息
+						var phone = doc.getElementById("phone");//电话 
+						var price= doc.getElementById("price");//需求价位
+						
+						doc.getElementById("headerbtn").addEventListener('click',function(){
+							var toup=$.currentWebview.toup;
+							if(toup!=null){
+								if(toup=="customer"){
+									var pcustomer=plus.webview.getWebviewById("customer.html");
+									pcustomer.show();
+									$.currentWebview.close();
+									
+								}else{
+									var pcustomer=plus.webview.getWebviewById("index.html");	
+									pcustomer.show();
+									$.currentWebview.close();
+								}
+							}else{
+								var pcustomer=plus.webview.getWebviewById("index.html");
+								pcustomer.show();
+								$.currentWebview.close();
+							}
+
+						});
+						$.ajax('http://192.168.1.7:8888/customer/getCustomerDetails', {
+							data: {
+								id: $.currentWebview.customerid
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							beforeSend: function(request) {
+								request.setRequestHeader("Authorization", state.token);
+							},
+							success: function(data) {
+								
+								if (data.msg == "OK") {
+										if(data.data!=null){
+											var info=data.data;
+											customername.innerHTML = info.customer_name;
+											timeStart.innerHTML = info.customer_starttime;
+											infocustomer.innerHTML = info.customer_details;
+											phone.innerHTML = info.customer_phone;
+											price.innerHTML = info.customer_price;
+										}
+						
+								} else {
+
+										$.openWindow({
+														url: '../error.html', //需要打开页面的url地址 
+														id: 'error', //需要打开页面的url页面id
+													
+														show: { //控制打开页面的类型
+															autoShow: false,
+															//页面loaded事件发生后自动显示，默认为true 
+															// aniShow: 'slide-in-right', //页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+															// aniShow: 'pop-in', //主页面跟着一起动
+															aniShow: 'zoom-fade-out', //目前广泛使用的方式
+															duration: '400' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒； 
+														},
+														waiting: { // 控制 弹出转圈框的信息
+															autoShow: true, //自动显示等待框，默认为true 
+															title: '加载中...', //等待对话框上显示的提示内容 
+															options: {
+																width: '100px', //等待框背景区域宽度，默认根据内容自动计算合适宽度 
+																height: '100px', //等待框背景区域高度，默认根据内容自动计算合适高度 ...... 
+															}
+														}
+													});						
+								   }
+							   }
+						   });
+						
+						//拨打电话
+						doc.getElementById("phone-customer").addEventListener('tap',function(){
+						            var btnArray=['拨打','取消'];
+						            var phonecustomer=phone.innerHTML;
+									if(phonecustomer!=null){
+							            $.confirm('是否拨打'+phonecustomer+'?','提示',btnArray,function(e){
+							                if(e.index == 0){
+							                    plus.device.dial(phone,false);
+							                }
+							            });
+									}else{
+										$.toast('没有电话号码');
+									}
+						 });
+						
+						$.oldBack = $.back;
+						$.back = function(event) {
+							var toup=$.currentWebview.toup;
+							if(toup!=null){
+								if(toup=="customer"){
+									var pcustomer=plus.webview.getWebviewById("customer.html");
+									pcustomer.show();
+									$.currentWebview.close();
+									
+								}else{
+									var pcustomer=plus.webview.getWebviewById("index.html");	
+									pcustomer.show();
+									$.currentWebview.close();
+								}
+								return false;
+							}else{
+								var pcustomer=plus.webview.getWebviewById("index.html");
+								pcustomer.show();
+								$.currentWebview.close();
+							}
+							return false;
+					
+							
+						};
+					});
+			}(mui, document));		
+		</script>
+	</body>
+
+</html>
