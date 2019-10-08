@@ -3,7 +3,13 @@
  * 当您要参考这个演示程序进行相关 app 的开发时，
  * 请注意将相关方法调整成 “基于服务端Service” 的实现。
  **/
+ //家里
+ var homeurlhead="http://192.168.1.7:8888/";
+ //公司
+ var workurlhead="http://192.168.1.101:8888/";
+ 
 (function($, owner) {
+	
 	/**
 	 * 用户登录
 	 **/
@@ -18,8 +24,9 @@
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		
-		$.ajax('http://192.168.1.7:8888/login/userlogin',{
+		var url = workurlhead+'login/userlogin';
+		var urlhome = homeurlhead+'login/userlogin';
+		$.ajax(url,{
 			data:{
 				username: loginInfo.account,
 				userpassword: loginInfo.password

@@ -95,10 +95,10 @@
 						//搜索框
 						var searchInput=doc.getElementById('searchKeyinput');
 						//搜索框事件
-						
+						var url = workurlhead+"customer/listCustomer";
 						searchInput.addEventListener('keyup',function(event){
 							if(event.keyCode == 13) {//用户点击回车的事件号为13
-							          $.ajax('http://192.168.1.7:8888/customer/listCustomer', {
+							          $.ajax(url, {
 							          	data: {
 							          		pageNum: '1',
 							          		pageSize: pageSize.innerHTML,
@@ -215,7 +215,7 @@
 							});
 							var createFragment = function(ul, index) {
 									if(nextpageNum.innerHTML != 0){
-												$.ajax('http://192.168.1.7:8888/customer/listCustomer', {
+												$.ajax(url, {
 													data: {
 														pageNum: nextpageNum.innerHTML,
 														pageSize: pageSize.innerHTML,
@@ -296,7 +296,7 @@
 								
 							};
 							//客源初始化
-							$.ajax('http://192.168.1.7:8888/customer/listCustomer', {
+							$.ajax(url, {
 								data: {
 									pageNum: '1',
 									pageSize: pageSize.innerHTML

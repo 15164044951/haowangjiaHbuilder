@@ -147,6 +147,7 @@
 				
 				});
 				var state = app.getState();
+				var url= workurlhead+"house/insertHouse";
 				$('.mui-content').scroll({
 					bounce: false,
 					indicators: true
@@ -281,7 +282,7 @@
 					 })
 					//ajax
 					var ajaxInsertHouse=function(houseentity){
-						$.ajax('http://192.168.1.7:8888/house/insertHouse', {
+						$.ajax(url, {
 							data: {
 								hosueentity: houseentity
 							},

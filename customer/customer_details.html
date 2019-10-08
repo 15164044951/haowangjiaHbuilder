@@ -19,6 +19,10 @@
 			.mui-card-header{
 				color:  #555555;
 			}
+			#price{
+				color: #FFD700;
+				font-size: 30px;
+			}
 		</style>
 	</head>
 			
@@ -69,7 +73,7 @@
 						var infocustomer = doc.getElementById("infocustomer");//需求信息
 						var phone = doc.getElementById("phone");//电话 
 						var price= doc.getElementById("price");//需求价位
-						
+						var url= workurlhead+"customer/getCustomerDetails";
 						doc.getElementById("headerbtn").addEventListener('click',function(){
 							var toup=$.currentWebview.toup;
 							if(toup!=null){
@@ -90,7 +94,7 @@
 							}
 
 						});
-						$.ajax('http://192.168.1.7:8888/customer/getCustomerDetails', {
+						$.ajax(url, {
 							data: {
 								id: $.currentWebview.customerid
 							},
@@ -112,7 +116,7 @@
 											timeStart.innerHTML = info.customer_starttime;
 											infocustomer.innerHTML = info.customer_details;
 											phone.innerHTML = info.customer_phone;
-											price.innerHTML = info.customer_price;
+											price.innerHTML = info.customer_pricetext;
 										}
 						
 								} else {
@@ -156,6 +160,61 @@
 										$.toast('没有电话号码');
 									}
 						 });
+						var urldelete=workurlhead+"customer/deleteCustomer";
+						
+						doc.querySelector(".mui-btn-danger").addEventListener('click',function(){
+							 var btnArray=['确认','取消'];
+							$.confirm('是否删除'+customername.innerHTML+'?','提示',btnArray,function(e){
+							        if(e.index == 0){
+										$.ajax(urldelete, {
+											data: {
+												id: $.currentWebview.customerid
+											},
+											dataType: 'json', //服务器返回json格式数据
+											type: 'post', //HTTP请求类型
+											timeout: 10000, //超时时间设置为10秒；
+											headers: {
+												'Content-Type': 'application/json'
+											},
+											beforeSend: function(request) {
+												request.setRequestHeader("Authorization", state.token);
+											},
+											success: function(data) {
+												
+												if (data.msg == "OK") {
+														alert("删除成功");
+														$.back();
+										
+												} else {
+										
+														$.openWindow({
+																		url: '../error.html', //需要打开页面的url地址 
+																		id: 'error', //需要打开页面的url页面id
+																	
+																		show: { //控制打开页面的类型
+																			autoShow: false,
+																			//页面loaded事件发生后自动显示，默认为true 
+																			// aniShow: 'slide-in-right', //页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+																			// aniShow: 'pop-in', //主页面跟着一起动
+																			aniShow: 'zoom-fade-out', //目前广泛使用的方式
+																			duration: '400' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒； 
+																		},
+																		waiting: { // 控制 弹出转圈框的信息
+																			autoShow: true, //自动显示等待框，默认为true 
+																			title: '加载中...', //等待对话框上显示的提示内容 
+																			options: {
+																				width: '100px', //等待框背景区域宽度，默认根据内容自动计算合适宽度 
+																				height: '100px', //等待框背景区域高度，默认根据内容自动计算合适高度 ...... 
+																			}
+																		}
+																	});						
+												   }
+											   }
+										   });
+									 }
+								});
+							
+						});
 						
 						$.oldBack = $.back;
 						$.back = function(event) {

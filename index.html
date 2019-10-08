@@ -113,10 +113,8 @@
 			
 			$.plusReady(function() {
 				var state = app.getState();
-				
-				
-				
-				$.ajax('http://192.168.1.7:8888/index/indexText', {
+				var url = workurlhead+"index/indexText";
+				$.ajax(url, {
 					data: {
 						username: state.account
 					},

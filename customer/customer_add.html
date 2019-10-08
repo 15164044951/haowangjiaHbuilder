@@ -22,7 +22,7 @@
 				<button id="headerbtn" class="mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
 					<span class="mui-icon mui-icon-left-nav"></span>首页
 				</button>
-			   <h1 class="mui-title" id="title">房源创建</h1>
+			   <h1 class="mui-title" id="title">客源创建</h1>
 		</header>
 		<div class="mui-content">
 			<div class="mui-content-padded" style="margin: 5px;">
@@ -33,40 +33,36 @@
 					</div>
 					<div class="mui-input-row">
 						<label>电话：</label>
-						<input type="text" id="customer_phone" class="mui-input-speech mui-input-clear" placeholder="请输入电话">
+						<input type="number" id="customer_phone" class="mui-input-speech mui-input-clear" placeholder="请输入电话">
 					</div>
 					<div class="mui-input-row">
 						<label>需求类型：</label>
-						<label>租:<input type="radio" name="customer-radio-type" value="1" class="customer-radio" >卖:<input type="radio"  value="0" name="customer-radio-type" class="customer-radio" > </label>
+						<label>租:<input type="radio" checked="checked" name="customer-radio-type" value="0" class="customer-radio" >买:<input type="radio"  value="1" name="customer-radio-type" class="customer-radio" > </label>
 						
 					</div>
 					<div class="mui-input-row">
 						<label>价格：</label>
-						<input type="text" class="mui-input-speech mui-input-clear" placeholder="请输入价格">
+						<input type="number" id="customer_price" class="mui-input-speech mui-input-clear" placeholder="请输入价格">
 					</div>
 					<div class="mui-input-row">
 						<label>紧急与否：</label>
-						<select class="mui-select ">
+						<select class="mui-select " id="customer_fast">
 							<option value="0">着急</option>
 							<option value="1" selected="selected">不急</option>
 						</select>
 						<span class="mui-navigate-right"></span>
 					</div>
-					
-			
-		<!-- 			<div class="mui-input-row mui-plus-visible">
-						<label>Input</label>
-						<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
-					</div> -->
+					<div class="mui-input-row" style="margin: 10px 5px;height: 120px;">
+						<label>详细信息：</label>
+						<textarea id="customer_details" rows="5" placeholder="需求详情等"></textarea>
+					</div>
 					<div class="mui-button-row">
-						<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">确认</button>&nbsp;&nbsp;
-						<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+						<button type="button" class="mui-btn mui-btn-primary" >确认</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" >取消</button>
 					</div>
 					
 				</form>
-				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea id="textarea" rows="5" placeholder="需求详情等"></textarea>
-				</div>
+				
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -80,15 +76,114 @@
 						}
 					
 					});
+					var state = app.getState();
+					var url= workurlhead+"customer/insertCustomer";
 					$.plusReady(function() {
 						
+						doc.querySelector(".mui-btn-primary").addEventListener('click',function(){
+							var customer = {
+								        "customer_name": null,
+								        "customer_type": null,
+								        "customer_phone": null,
+								        "customer_details": null,
+								        "customer_fast": 0,
+								        "customer_price": null
+							};
+							
+							var customer_name=doc.getElementById("customer_name").value;
+							
+							var customer_phone=doc.getElementById("customer_phone").value;
+							var customer_details=doc.getElementById("customer_details").value;
+							var customer_fast=doc.getElementById("customer_fast").value;
+							var customer_price=doc.getElementById("customer_price").value;
+							
+							if(customer_name!=null && customer_name!=''){
+								customer.customer_name=customer_name;
+							}else{
+								alert("备注名不能为空");
+								return false;
+							}
+							
+							if(customer_phone!=null && customer_phone!=''){
+								customer.customer_phone=customer_phone;
+							}else{
+								alert("电话不能为空");
+								return false;
+							}
+							var customer_danxuan=doc.querySelectorAll(".customer-radio");
+							for (var i = 0 ; i<customer_danxuan.length;i++){
+								if(customer_danxuan[i].checked){
+									customer.customer_type=customer_danxuan[i].value;
+								}
+							}
+						
+							
+							if(customer_price!=null && customer_price!=''){
+								customer.customer_price=customer_price;
+							}else{
+								alert("价格不能为空");
+								return false;
+							}
+							
+							if(customer_details!=null && customer_details!=''){
+								customer.customer_details=customer_details;
+							}else{
+								alert("详情不能为空");
+								return false;
+							}
+							
+							if(customer_fast!=null && customer_fast!=''){
+								customer.customer_fast=customer_fast;
+							}
+							//添加数据ajax
+							insertAjaxCustomer(customer);
+						});
+						
+						var  insertAjaxCustomer=function(customer){
+							$.ajax(url, {
+								data: {
+									customer: customer
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								beforeSend: function(request) {
+									request.setRequestHeader("Authorization", state.token);
+								},
+								success: function(data) {
+									
+										if (data.msg == "OK") {
+												alert("添加成功");
+												bockajax();
+										} else {
+												alert("异常");
+									   }
+								   
+								   }
+							   });
+							
+						}
+						//成功后回到首页
+						var bockajax=function(){
+							var pcustomer=plus.webview.getWebviewById("index.html");
+							pcustomer.show();
+							$.currentWebview.close();
+						}
 						//返回首页
 						doc.getElementById("headerbtn").addEventListener('click',function(){
 							var phouse=plus.webview.getWebviewById("index.html");
 							phouse.show();
 							$.currentWebview.close();
 						});
-						
+						//取消回到首页
+						doc.querySelector(".mui-btn-danger").addEventListener('click',function(){
+							var phouse=plus.webview.getWebviewById("index.html");
+							phouse.show();
+							$.currentWebview.close();
+						});
 						//原生返回首页
 						$.oldBack = $.back;
 									var backButtonPress = 0;

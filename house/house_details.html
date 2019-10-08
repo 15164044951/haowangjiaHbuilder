@@ -87,60 +87,64 @@
 				</button>
 			   <h1 class="mui-title" id="title">房屋详情</h1>
 		</header>
-		<div id="slider" class="mui-slider" >
-			<div class="mui-slider-group mui-slider-loop">
-				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate ">
-					<a href="#">
-						<img src="../images/yuantiao.jpg">
-					</a>
-
+	
+		
+		<div class="mui-content  mui-scroll-wrapper">	
+			<div class="mui-scroll">
+				<div id="slider" class="mui-slider " >
+					
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate ">
+							<a href="#">
+								<img src="../images/yuantiao.jpg">
+							</a>
+				
+						</div>
+						<!-- 第一张 -->
+						<div class="mui-slider-item ">
+							<a href="#">
+								<img src="../images/shuijiao.jpg">
+							</a>
+				
+						</div>
+						<!-- 第二张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../images/muwu.jpg">
+							</a>
+				
+						</div>
+						<!-- 第三张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../images/cbd.jpg">
+							</a>
+				
+						</div>
+						<!-- 第四张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../images/yuantiao.jpg">
+							</a>
+				
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="../images/shuijiao.jpg">
+							</a>
+				
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
 				</div>
-				<!-- 第一张 -->
-				<div class="mui-slider-item ">
-					<a href="#">
-						<img src="../images/shuijiao.jpg">
-					</a>
-
-				</div>
-				<!-- 第二张 -->
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/muwu.jpg">
-					</a>
-
-				</div>
-				<!-- 第三张 -->
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/cbd.jpg">
-					</a>
-
-				</div>
-				<!-- 第四张 -->
-				<div class="mui-slider-item">
-					<a href="#">
-						<img src="../images/yuantiao.jpg">
-					</a>
-
-				</div>
-				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-				<div class="mui-slider-item mui-slider-item-duplicate">
-					<a href="#">
-						<img src="../images/shuijiao.jpg">
-					</a>
-
-				</div>
-			</div>
-			<div class="mui-slider-indicator">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-				<div class="mui-indicator"></div>
-			</div>
-		</div>
-		<div class="mui-content">
-			<div class="house-details-info">
+			 <div class="house-details-info">
 				<div class="house-details-info-left">
 					<h4 id="titlename" class="house-details-titlename"></h4>
 					<p  id="titledate" class="house-details-date"></p>
@@ -180,7 +184,7 @@
 				
 			</div>
 			
-			
+			</div>
 		</div>
 		<script src="..js/mui.js"></script>
 		<script src="../js/mui.min.js"></script>
@@ -195,8 +199,11 @@
 					});
 				
 
-				
-				
+				var url= workurlhead+"house/getHouseDetails";
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true
+				});
 				// var  id= document.getElementById("title");				
 				$.plusReady(function() {
 					var state = app.getState();
@@ -292,7 +299,7 @@
 					
 
 			
-					$.ajax('http://192.168.1.7:8888/house/getHouseDetails', {
+					$.ajax(url, {
 						data: {
 							id: $.currentWebview.houseid
 						},
