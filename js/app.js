@@ -38,8 +38,14 @@
 			success:function(data){
 				// var a = JSON.stringify(data);
 				if(data.msg=="OK"){
+					
+					var users={
+						account:loginInfo.account,
+						password:data.data.user_password,
+						nike_name:data.data.nike_name
+					}
 					loginInfo.nikename = data.data.nike_name;
-					localStorage.setItem('$users', JSON.stringify(loginInfo));
+					localStorage.setItem('$users', JSON.stringify(users));
 					owner.createState(data.data.user_name,data.data.user_token, callback);
 				}else{
 					// $.toast(data.msg);
@@ -103,5 +109,10 @@
 		return JSON.parse(usersText);
 	}
 
+
+	owner.backlogin = function(){
+		localStorage.removeItem("$state");
+		localStorage.removeItem("$users");
+	}
 	
 }(mui, window.app = {}));

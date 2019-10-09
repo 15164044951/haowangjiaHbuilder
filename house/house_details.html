@@ -364,10 +364,10 @@
 					   });
 					    //打房主电话功能
 					   doc.getElementById("house-dophone").addEventListener('tap',function(){
-					               var btnArray=['拨打','取消'];
+					               var btnArray=['取消','拨打'];
 					               var phone=houseownerphone.innerHTML;
-					               mui.confirm('是否拨打'+phone+'?','提示',btnArray,function(e){
-					                   if(e.index == 0){
+					               mui.confirm('是否拨打电话：'+phone+'?','提示',btnArray,function(e){
+					                   if(e.index == 1){
 					                       plus.device.dial(phone,false);
 					                   }
 					               });

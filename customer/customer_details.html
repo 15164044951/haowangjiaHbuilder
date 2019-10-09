@@ -148,11 +148,11 @@
 						
 						//拨打电话
 						doc.getElementById("phone-customer").addEventListener('tap',function(){
-						            var btnArray=['拨打','取消'];
+						            var btnArray=['取消','拨打'];
 						            var phonecustomer=phone.innerHTML;
 									if(phonecustomer!=null){
-							            $.confirm('是否拨打'+phonecustomer+'?','提示',btnArray,function(e){
-							                if(e.index == 0){
+							            $.confirm('是否拨打电话：'+phonecustomer+'?','提示',btnArray,function(e){
+							                if(e.index == 1){
 							                    plus.device.dial(phone,false);
 							                }
 							            });
@@ -163,9 +163,9 @@
 						var urldelete=workurlhead+"customer/deleteCustomer";
 						//删除
 						doc.querySelector(".mui-btn-danger").addEventListener('click',function(){
-							 var btnArray=['确认','取消'];
-							$.confirm('是否删除'+customername.innerHTML+'?','提示',btnArray,function(e){
-							        if(e.index == 0){
+							 var btnArray=['取消','确认'];
+							$.confirm('是否删除客户：'+customername.innerHTML+'?','提示',btnArray,function(e){
+							        if(e.index == 1){
 										$.ajax(urldelete, {
 											data: {
 												id: $.currentWebview.customerid

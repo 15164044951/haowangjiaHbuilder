@@ -144,34 +144,40 @@
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
 					var state = app.getState();
-					var mainPage = plus.webview.getWebviewById("main");
-					var main_loaded_flag = false;
-					if(!mainPage){
-						mainPage = $.preload({
-							"id": 'main',
-							"url": 'main.html'
-						});
-					}else{
-						main_loaded_flag = true;
-					}
+					// var mainPage = plus.webview.getWebviewById("main");
+					// var main_loaded_flag = false;
+					// if(!mainPage){
+					// 	mainPage = $.preload({
+					// 		"id": 'main',
+					// 		"url": 'main.html'
+					// 	});
+					// }else{
+					// 	main_loaded_flag = true;
+					// }
 					
-					mainPage.addEventListener("loaded",function () {
-						main_loaded_flag = true;
-					});
+					// mainPage.addEventListener("loaded",function () {
+					// 	main_loaded_flag = true;
+					// });
 					var toMain = function() {
 						//使用定时器的原因：
 						//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
 						var id = setInterval(function () {
-							if(main_loaded_flag){
-								clearInterval(id);
-								$.fire(mainPage, 'show', null);
-								mainPage.show("pop-in");
-							}
+							var  main=	plus.webview.create("main.html","main");
+							main.show();
+							$.currentWebview.hide();
+							clearInterval(id);
+							// if(main_loaded_flag){
+							// 	// clearInterval(id);
+							// 	// $.fire(mainPage, 'show', null);
+							// 	// mainPage.show("pop-in");
+								
+								
+							// }
 						},20);
 					};
 					// 打开app 根据token判断进入登录页还是首页
 					if (state.token) {
-						//toMain();
+						toMain();
 					} else {
 						app.setState(null);
 						// $.preload({
