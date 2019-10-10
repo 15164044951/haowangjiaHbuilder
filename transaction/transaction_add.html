@@ -7,6 +7,47 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+				
+			}
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			.mui-page {
+				display: none;
+			}
+			.mui-pages .mui-page {
+				display: block;
+			}
+			.valueId{
+				display: none;
+			}
+			.fontsize-transction{
+				font-size: 13px;
+			}
+			.transaction-radio{
+				margin-right: 3px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -28,13 +69,108 @@
 		</div>
 	</div>
 	<div id="setting" class="mui-page">
+				<div class="mui-page-content">
+					<div class="mui-content-padded" style="margin: 5px;">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form class="mui-input-group">
+									<div class="mui-input-row">
+										<label>成交房屋：</label>
+<!-- 										<label>西安路财神</label> -->
+										<label>
+											<a href="#housegetid" class="mui-navigate-right">		
+												<p class="mui-ellipsis">
+																请选择成交房屋
+												</p>
+												<p class="valueId"></p>
+											</a>
+										</label>
+										<!--  -->
+									</div>
+									<div class="mui-input-row">
+											<label>成交客户：</label>
+											<label>	
+																	
+												<a href="#customergetid" class="mui-navigate-right">		
+													<p class="mui-ellipsis">
+														请选择成交客户
+													</p>
+													<p class="valueId"></p>
+												</a>
+											</label>						<!--  -->
+									</div>
+									<div class="mui-input-row">
+										<label>成交类别：</label>
+										<label class="fontsize-transction">其他:<input type="radio" checked="checked" name="transaction-radio-type" value="0" class="transaction-radio" >自己的:<input type="radio"  value="1" name="transaction-radio-type" ></label>
+										
+									</div>
+									<div class="mui-input-row">
+										<label>价格：</label>
+										<input type="number" id="customer_price" class="mui-input-clear" placeholder="请输入价格">
+									</div>
+									<div class="mui-input-row">
+										<label>成交类型：</label>
+										<label class="fontsize-transction">租赁:<input type="radio" checked="checked" name="transaction-radio-type-zumai" value="0" class="transaction-radio" >买卖:<input type="radio"  value="1" name="transaction-radio-type-zumai" class="transaction-radio" > </label>
+									</div>
+									<div class="mui-input-row">
+										<label>出租类型：</label>
+										<select class="mui-select fontsize-transction"  id="house_rentalstate">
+											<option value="4">无</option>
+											<option value="0">押一付三</option>
+											<option value="1">押一付一</option>
+											<option value="2">押一付二</option>
+											<option value="3">押三付三</option>
+										</select>
+										<span class="mui-navigate-right"></span>
+									</div>
+									<div class="mui-input-row">
+										<label>买卖类型：</label>
+										<select class="mui-select fontsize-transction" id="house_selltype">
+											<option value="2">无</option>
+											<option value="0">使用权</option>
+											<option value="1">产权</option>
+										</select>
+										<span class="mui-navigate-right"></span>
+									</div>
+									<div class="mui-input-row">
+										<label>租赁形式：</label>
+										<select class="mui-select fontsize-transction " id="customer_fast">
+											<option value="0">代理</option>
+											<option value="1" selected="selected">托管</option>
+										</select>
+										<span class="mui-navigate-right"></span>
+									</div>
+									<div class="mui-input-row" >
+										<label>合同年限：</label>
+										<input type="number" id="house_sellingprice" class=" fontsize-transction mui-input-clear" placeholder="请输入合同年限">
+									</div>
+									<div class="mui-button-row">
+										<button type="button" class="mui-btn mui-btn-primary" >确认</button>&nbsp;&nbsp;
+										<button type="button" class="mui-btn mui-btn-danger" >取消</button>
+									</div>
+									
+								</form>
+						     </div>
+						</div>
+					</div>
+			</div>
+	</div>
+	<div id="housegetid" class="mui-page">
 		<div class="mui-page-content">
-			123456
+					<img src="../images/cbd.jpg" />
+
+					
 		</div>
 	</div>
+	<div id="customergetid" class="mui-page">
+		<div class="mui-page-content">
+					<img src="../images/cbd.jpg" />
 	
-	
+					
+		</div>
+	</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.js"></script>
 		<script src="../js/app.js"></script>
 		<script src="../js/mui.view.js "></script>
 		<script type="text/javascript">
