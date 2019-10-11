@@ -47,6 +47,9 @@
 			.transaction-radio{
 				margin-right: 3px;
 			}
+			.transaction-hide-info{
+				display: none;
+			}
 		</style>
 	</head>
 
@@ -155,19 +158,56 @@
 					</div>
 			</div>
 	</div>
+	<!-- 成交房屋选择 -->
 	<div id="housegetid" class="mui-page">
 		<div class="mui-page-content">
-					<img src="../images/cbd.jpg" />
-
-					
+					<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-content-padded">
+								<ul id="ul-view-houseNew" class="mui-table-view mui-table-view-chevron">							
+								</ul>									
+						</div>
+					</div>
+				</div>
 		</div>
 	</div>
+	<!-- 成交客户选择 -->
 	<div id="customergetid" class="mui-page">
 		<div class="mui-page-content">
-					<img src="../images/cbd.jpg" />
+					<div id="offCanvasContentScroll" class="mui-content  mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div class="mui-content-padded">
+										<ul id="ul-view-customer" class="mui-table-view ">
+										</ul>								
+							</div>		
+						</div>
+					</div>
+					
 	
 					
 		</div>
+	</div>
+	
+	<div  class="transaction-hide-info">
+			<p id="pages">10</p>
+			<p id="pageNum" >1</p>
+			<p id="nextpageNum" >2</p>
+			<p id="pageSize" >6</p>
+			<ul>
+				<li id="default-li" class="mui-table-view-cell">
+					<a href="#" class="li-a-detailsUrl" ><img class="mui-media-object mui-pull-left" src="images/shuijiao.jpg">
+						<div class="mui-media-body">
+							<p class="li-div-p">
+								
+							</p>
+							<p class="mui-ellipsis">
+										
+							</p>
+						</div>
+					</a>
+				</li>
+				
+			</ul>
 	</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/mui.js"></script>
@@ -179,7 +219,28 @@
 				var viewApi = $('#app').view({
 					defaultPage: '#setting'
 				});
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true
+				});
+				var state = app.getState();
+				//最大页数
+				var pages = doc.getElementById("pages");
+				//当前页数
+				var pageNum = doc.getElementById("pageNum");
+				//显示个数
+				var pageSize = doc.getElementById("pageSize");
+				//下一页
+				var nextpageNum = doc.getElementById("nextpageNum");
+				//搜索框
+				var searchInput=doc.getElementById('searchKeyinput');
+				//搜索框事件
+				var url = workurlhead+"customer/listCustomer";
 				
+				
+				$.plusReady(function() { 
+					
+				});
 				}(mui, document));	
 		</script>
 	</body>
